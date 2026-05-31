@@ -15,16 +15,30 @@ pipeline {
             }
         }
 
-        stage('Playwright') {
+        stage('Playwright Install') {
             steps {
-                sh 'npx playwright install --with-deps'
+                sh 'npx playwright install'
             }
         }
 
-        stage('E2E') {
+        stage('E2E Tests') {
             steps {
                 sh 'npx playwright test'
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finalizado'
+        }
+
+        success {
+            echo 'Pipeline executado com sucesso 🚀'
+        }
+
+        failure {
+            echo 'Pipeline falhou ❌'
         }
     }
 }
