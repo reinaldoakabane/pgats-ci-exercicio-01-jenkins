@@ -27,7 +27,7 @@ pipeline {
 
         stage('E2E Tests') {
             steps {
-                sh 'npx playwright test --reporter=line --workers=1'
+                sh 'npx playwright test --reporter=line --workers=1 --headed'
             }
         }
     }
