@@ -17,7 +17,7 @@ pipeline {
 
         stage('Playwright') {
             steps {
-                sh 'yarn playwright install'
+                sh 'npx playwright install'
             }
         }
 
