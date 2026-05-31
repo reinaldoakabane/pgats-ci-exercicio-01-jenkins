@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+    }
+
     stages {
 
         stage('Checkout') {
@@ -23,22 +27,14 @@ pipeline {
 
         stage('E2E Tests') {
             steps {
-                sh 'npx playwright test'
+                sh 'npx playwright test --reporter=line --timeout=30000'
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline finalizado'
-        }
-
-        success {
-            echo 'Pipeline executado com sucesso 🚀'
-        }
-
-        failure {
-            echo 'Pipeline falhou ❌'
+            echo 'Finalizado'
         }
     }
 }
