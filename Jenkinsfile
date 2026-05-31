@@ -17,13 +17,13 @@ pipeline {
 
         stage('Playwright') {
             steps {
-                sh 'npx playwright install'
+                sh 'npx playwright install --with-deps'
             }
         }
 
         stage('E2E') {
             steps {
-                sh 'yarn run e2e'
+                sh 'npx playwright test'
             }
         }
     }
