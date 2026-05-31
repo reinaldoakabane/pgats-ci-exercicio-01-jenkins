@@ -5,6 +5,10 @@ pipeline {
         timeout(time: 20, unit: 'MINUTES')
     }
 
+    environment {
+        CI = 'true'
+    }
+
     stages {
 
         stage('Checkout') {
@@ -21,13 +25,13 @@ pipeline {
 
         stage('Playwright Install') {
             steps {
-                sh 'npx playwright install'
+                sh 'npx playwright install chromium'
             }
         }
 
         stage('E2E Tests') {
             steps {
-                sh 'npx playwright test --reporter=line --timeout=30000'
+                sh 'npx playwright test --reporter=line --workers=1'
             }
         }
     }
