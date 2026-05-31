@@ -25,20 +25,20 @@ pipeline {
 
         stage('Playwright Install') {
             steps {
-                sh 'npx playwright install chromium'
+                sh 'npx playwright install chromium --with-deps=false'
             }
         }
 
         stage('E2E Tests') {
             steps {
-                sh 'npx playwright test --reporter=line --workers=1'
+                sh 'npx playwright test --reporter=line --workers=1 --project=chromium'
             }
         }
     }
 
     post {
         always {
-            echo 'Finalizado'
+            echo 'Pipeline finalizado'
         }
     }
 }
