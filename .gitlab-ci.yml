@@ -1,0 +1,29 @@
+# CI de Nível 01 - Disparo Manual através de clique
+
+# Estágios da pipeline
+stages:
+  - test
+
+# Job de testes e2e
+e2e-tests:
+  stage: test
+
+  # Imagem Docker com Node (equivalente ao runs-on + setup-node)
+  image: node:24
+
+  # Disparo manual (equivalente ao workflow_dispatch)
+  when: manual
+
+  # Passos do job
+  script:
+    # Instalação do yarn
+    - npm install -g yarn
+
+    # Instalação das dependências
+    - yarn
+
+    # Instalação dos browsers do Playwright + dependências do sistema
+    - npx playwright install --with-deps
+
+    # Execução dos testes e2e
+    - yarn run e2e
