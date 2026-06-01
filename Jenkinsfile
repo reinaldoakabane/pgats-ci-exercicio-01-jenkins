@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-
-    options {
-        timeout(time: 20, unit: 'MINUTES')
+    agent {
+        docker {
+            image 'node:24'
+        }
     }
 
     stages {
@@ -15,26 +15,20 @@ pipeline {
 
         stage('Dependencies') {
             steps {
-                sh 'npm install --legacy-peer-deps'
+                sh 'yarn'
             }
         }
 
-        stage('Playwright Install') {
+        stage('Playwright') {
             steps {
-                sh 'npx playwright install chromium'
+                sh 'npx playwright install --with-deps'
             }
         }
 
-        stage('E2E Tests') {
+        stage('E2E') {
             steps {
-                sh 'npx playwright test --reporter=line --workers=1 --headed'
+                sh 'yarn run e2e'
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline finalizado'
         }
     }
 }
