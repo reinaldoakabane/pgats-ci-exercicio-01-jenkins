@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:24'
+            args '-u root'
         }
     }
 
